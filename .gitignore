@@ -1,0 +1,10 @@
+# Claude Code 플랜 파일
+.claude/plans/
+
+# OS 생성 파일
+.DS_Store
+Thumbs.db
+
+# 에디터 설정
+.vscode/
+.idea/

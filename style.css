@@ -1,0 +1,271 @@
+/* =========================================
+   CSS 변수 (테마 컬러 및 공통 값)
+   ========================================= */
+:root {
+  --color-bg: #111827;
+  --color-card: #ffffff;
+  --color-primary: #6366f1;
+  --color-primary-end: #8b5cf6;
+  --color-text: #1f2937;
+  --color-muted: #6b7280;
+  --color-btn-hover: #4f46e5;
+  --radius-card: 24px;
+  --shadow-card: 0 20px 60px rgba(0, 0, 0, 0.35);
+}
+
+/* =========================================
+   전역 초기화
+   ========================================= */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  min-height: 100dvh;
+  /* 노치/홈 인디케이터 영역 침범 방지 */
+  padding: env(safe-area-inset-top) env(safe-area-inset-right)
+           env(safe-area-inset-bottom) env(safe-area-inset-left);
+}
+
+/* =========================================
+   페이지 레이아웃 (화면 중앙 정렬)
+   ========================================= */
+.page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100dvh;
+  /* 모바일: 카드가 화면 끝에 붙지 않도록 충분한 여백 */
+  padding: 32px 24px;
+}
+
+/* =========================================
+   카드 등장 애니메이션
+   ========================================= */
+@keyframes cardIn {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* =========================================
+   명함 카드
+   ========================================= */
+.card {
+  background-color: var(--color-card);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  padding: 40px 28px 36px;
+  width: 100%;
+  max-width: 360px;
+  text-align: center;
+  /* 등장 애니메이션 */
+  animation: cardIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  /* 긴 텍스트 넘침 방지 */
+  overflow: hidden;
+}
+
+/* 호버 효과 (마우스가 있는 기기에서만) */
+@media (hover: hover) {
+  .card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 28px 72px rgba(0, 0, 0, 0.45);
+  }
+}
+
+/* =========================================
+   이니셜 아바타
+   ========================================= */
+@keyframes avatarPop {
+  0%   { transform: scale(0.7); opacity: 0; }
+  70%  { transform: scale(1.08); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.avatar {
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-end));
+  color: #ffffff;
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 24px;
+  box-shadow: inset 0 -4px 12px rgba(0, 0, 0, 0.15),
+              0 8px 24px rgba(99, 102, 241, 0.35);
+  /* 아바타 팝 인 효과 */
+  animation: avatarPop 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.15s both;
+}
+
+/* =========================================
+   이름
+   ========================================= */
+.name {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--color-text);
+  letter-spacing: -0.02em;
+  margin-bottom: 6px;
+  /* 긴 이름 줄바꿈 허용 */
+  word-break: break-word;
+}
+
+/* =========================================
+   직함
+   ========================================= */
+.title {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 16px;
+}
+
+/* =========================================
+   한 줄 소개
+   ========================================= */
+.bio {
+  font-size: 0.93rem;
+  color: var(--color-muted);
+  line-height: 1.65;
+  margin-bottom: 28px;
+  word-break: keep-all; /* 한국어 단어 중간 줄바꿈 방지 */
+}
+
+/* =========================================
+   연락처 영역
+   ========================================= */
+.contact {
+  font-style: normal;
+}
+
+/* =========================================
+   이메일 버튼
+   ========================================= */
+.email-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 13px 20px;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-end));
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 50px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: transform 0.2s ease, box-shadow 0.25s ease;
+  box-shadow: 0 4px 14px rgba(99, 102, 241, 0.4);
+  width: 100%;
+  /* 긴 이메일 주소 줄바꿈 처리 */
+  overflow-wrap: break-word;
+  word-break: break-all;
+  line-height: 1.4;
+}
+
+/* 이메일 아이콘 (유니코드 대신 ::before 사용) */
+.email-btn::before {
+  content: '✉';
+  flex-shrink: 0; /* 이메일이 길어져도 아이콘은 줄어들지 않음 */
+  font-size: 1rem;
+}
+
+/* 버튼 호버 */
+@media (hover: hover) {
+  .email-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(99, 102, 241, 0.55);
+  }
+}
+
+/* 버튼 탭/클릭 피드백 */
+.email-btn:active {
+  transform: scale(0.97);
+  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
+}
+
+/* =========================================
+   구분선 (버튼 위)
+   ========================================= */
+.divider {
+  width: 40px;
+  height: 1px;
+  background: #e5e7eb;
+  margin: 0 auto 24px;
+}
+
+/* =========================================
+   토스트 알림
+   ========================================= */
+.toast {
+  position: fixed;
+  /* 홈 인디케이터 위로 띄움 */
+  bottom: calc(28px + env(safe-area-inset-bottom));
+  left: 50%;
+  transform: translateX(-50%) translateY(16px);
+  background-color: #1f2937;
+  color: #ffffff;
+  padding: 10px 18px;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  /* 긴 화면에서도 화면 밖으로 안 나가도록 */
+  max-width: calc(100vw - 48px);
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  z-index: 100;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* =========================================
+   반응형: 480px 이상 (태블릿/데스크톱)
+   ========================================= */
+@media (min-width: 480px) {
+  .page {
+    padding: 48px 32px;
+  }
+
+  .card {
+    padding: 48px 44px 44px;
+  }
+
+  .avatar {
+    width: 96px;
+    height: 96px;
+    font-size: 2.2rem;
+  }
+
+  .name {
+    font-size: 1.75rem;
+  }
+
+  .email-btn {
+    /* 넓은 화면: 내용 너비에 맞춤 */
+    width: auto;
+    font-size: 0.9rem;
+    padding: 13px 28px;
+    word-break: normal;
+  }
+}
