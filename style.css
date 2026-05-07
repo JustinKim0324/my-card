@@ -475,6 +475,42 @@ body {
 
 
 /* =========================================
+   실시간 환율 위젯
+   ========================================= */
+@keyframes rateIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.rate-widget {
+  width: 100%; max-width: 360px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  animation: rateIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.5s both;
+}
+
+.rate-icon {
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.rate-text {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.85);
+  letter-spacing: -0.01em;
+}
+
+/* 로딩 / 에러 상태 */
+.rate-text.loading { color: rgba(255, 255, 255, 0.45); font-weight: 400; }
+.rate-text.error   { color: #fca5a5; font-weight: 400; }
+
+/* =========================================
    반응형: 480px 이상
    ========================================= */
 @media (min-width: 480px) {

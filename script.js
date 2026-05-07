@@ -153,3 +153,35 @@ async function initWeather() {
 }
 
 initWeather();
+
+
+/* =========================================
+   실시간 달러 환율 (frankfurter.app)
+   ========================================= */
+async function initExchangeRate() {
+  const el = document.getElementById('rateText');
+
+  /* 로딩 상태 */
+  el.textContent = '불러오는 중...';
+  el.className = 'rate-text loading';
+
+  try {
+    const res  = await fetch(
+      'https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/usd.json'
+    );
+    if (!res.ok) throw new Error('응답 오류');
+    const data = await res.json();
+
+    /* 소수점 반올림 후 천 단위 콤마 포맷 */
+    const rate = Math.round(data.usd.krw).toLocaleString('ko-KR');
+
+    el.textContent = `현재 달러 환율: ${rate}원`;
+    el.className = 'rate-text';
+
+  } catch {
+    el.textContent = '데이터를 불러올 수 없어요';
+    el.className = 'rate-text error';
+  }
+}
+
+initExchangeRate();
